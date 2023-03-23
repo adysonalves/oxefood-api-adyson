@@ -27,4 +27,5 @@ public abstract class GenericService {
             throw new PreenchimentoException(PreenchimentoException.MSG_PREENCHIMENTO_OBRIGATORIO, rotulo);
         }
     }
+}
 
