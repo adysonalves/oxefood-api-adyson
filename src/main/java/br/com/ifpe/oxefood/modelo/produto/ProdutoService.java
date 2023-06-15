@@ -5,8 +5,12 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import br.com.ifpe.oxefood.modelo.cliente.Cliente;
 import br.com.ifpe.oxefood.util.entity.GenericService;
 
 @Service
@@ -46,6 +50,16 @@ public class ProdutoService extends GenericService {
        produto.setValorUnitario(produtoAlterado.getValorUnitario());
          
        super.preencherCamposAuditoria(produto);
+       repository.save(produto);
+   }
+
+    @Transactional
+   public void delete(Long id) {
+
+       Produto produto = repository.findById(id).get();
+       produto.setHabilitado(Boolean.FALSE);
+       super.preencherCamposAuditoria(produto);
+
        repository.save(produto);
    }
 

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.oxefood.modelo.cliente.Cliente;
 import br.com.ifpe.oxefood.util.entity.GenericService;
 
 @Service
@@ -53,6 +54,16 @@ public class EntregadorService extends GenericService {
        entregador.setEnderecoRua(entregadorAlterado.getEnderecoRua());
          
        super.preencherCamposAuditoria(entregador);
+       repository.save(entregador);
+   }
+
+   @Transactional
+   public void delete(Long id) {
+
+       Entregador entregador = repository.findById(id).get();
+       entregador.setHabilitado(Boolean.FALSE);
+       super.preencherCamposAuditoria(entregador);
+
        repository.save(entregador);
    }
 
